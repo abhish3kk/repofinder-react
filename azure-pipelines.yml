@@ -19,12 +19,12 @@ steps:
 - script: |
     npm install
     npm run build
-    ls -ltrh build
+    ls -ltrh dist
   displayName: 'npm install and build'
 
 - task: AzureStaticWebApp@0
   inputs:
     app_location: '/'
-    output_location: 'build'
+    output_location: 'dist'
     azure_static_web_apps_api_token: $(azure_static_web_apps_api_token)
   displayName: 'Deploy to Azure Static Web App'
