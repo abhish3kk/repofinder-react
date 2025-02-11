@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { RegisterUser } from "../models/app.models";
 import { Link, useNavigate } from "react-router";
-import { getUserDetails, register } from "../api";
+import { register } from "../api";
 
 const Register = () => {
   const [user, setUser] = useState<RegisterUser>({
@@ -30,7 +30,6 @@ const Register = () => {
     if(response && response.responseObject) {
       localStorage.setItem('jwt', response.responseObject.toString())
       localStorage.setItem("isAuthenticated", "true")
-      await getUserDetails()
       navigate("/", {replace: true})
     }
   }

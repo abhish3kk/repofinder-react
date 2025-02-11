@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
@@ -15,8 +15,7 @@ const Login = () => {
   }, [isAuthenticated, navigate]);
 
   const handleLogin = () => {
-    localStorage.setItem("isAuthenticated", "true");
-    navigate("/");
+    
   };
 
   const navigateToRegister = () => {
@@ -29,17 +28,17 @@ const Login = () => {
         <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-gray-100">
           Login
         </h2>
-        <form className="space-y-4">
+        <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-              Email
+              Username
             </label>
             <input
-              type="email"
+              type="text"
               className="mt-1 w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 dark:text-gray-200"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
@@ -50,7 +49,7 @@ const Login = () => {
             <input
               type="password"
               className="mt-1 w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 dark:text-gray-200"
-              placeholder="Enter your password"
+              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -60,20 +59,20 @@ const Login = () => {
             <button
               type="submit"
               className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 cursor-pointer disabled:bg-gray-400 disabled:cursor-default"
-              disabled={!email || !password}
+              disabled={!username || !password}
               onClick={handleLogin}
             >
               Login
             </button>
             <button
-              type="submit"
+              type="button"
               className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 cursor-pointer"
               onClick={navigateToRegister}
             >
               Register
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
