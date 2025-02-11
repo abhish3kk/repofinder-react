@@ -28,6 +28,9 @@ steps:
   displayName: 'Move .env file'
 
 - script: |
+    cat .env
+
+- script: |
     npm install
     npm run build
     ls -ltrh dist
