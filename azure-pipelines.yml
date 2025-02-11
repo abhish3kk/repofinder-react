@@ -24,7 +24,7 @@ steps:
     secureFile: '.env'
 
 - script: |
-    mv $(Agent.TempDirectory)/your-env-file-name $(Build.SourcesDirectory)/.env
+    mv $(Agent.TempDirectory)/.env $(Build.SourcesDirectory)/.env
   displayName: 'Move .env file'
 
 - script: |
