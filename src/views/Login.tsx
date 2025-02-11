@@ -9,8 +9,8 @@ const Login = () => {
   const { setAuthToken, token } = useAuth()
   const navigate = useNavigate();
 
-  const handleLogin = (e: React.KeyboardEvent) => {
-    if(e.type === "click" || e.key === "Enter") {
+  const handleLogin = (e: React.KeyboardEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement>) => {
+    if(e.type === "click" ||("key" in e &&  e.key === "Enter")) {
       login({username, password}).then(resp => {
         setAuthToken(resp.responseObject.toString())
         console.log(token)
@@ -65,7 +65,7 @@ const Login = () => {
           </div>
           <div className="flex flex-col sm:flex-row gap-4 w-full">
             <button
-              type="submit"
+              type="button"
               className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 cursor-pointer disabled:bg-gray-400 disabled:cursor-default"
               disabled={!username || !password}
               onClick={handleLogin}
