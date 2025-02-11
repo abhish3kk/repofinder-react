@@ -16,6 +16,17 @@ steps:
     versionSpec: '22.x'
   displayName: 'Install Node.js'
 
+
+- task: DownloadSecureFile@1
+  name: 'DownloadEnvFile'
+  displayName: 'Download .env file'
+  inputs:
+    secureFile: '.env'
+
+- script: |
+    mv $(Agent.TempDirectory)/your-env-file-name $(Build.SourcesDirectory)/.env
+  displayName: 'Move .env file'
+
 - script: |
     npm install
     npm run build
