@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 interface AuthContextType {
   token: string | null;
-  login: (token: string) => void;
+  setAuthToken: (token: string) => void;
   logout: () => void;
 }
 
@@ -18,9 +18,9 @@ export const AuthProvider = ({children} : {children: React.ReactNode}) => {
     }
   }, []);
 
-  const login = (newToken : string) => {
+  const setAuthToken = (newToken : string) => {
+    setToken(newToken);
     localStorage.setItem("token", newToken);
-    setToken(null);
   }
 
   const logout = () => {
@@ -28,8 +28,26 @@ export const AuthProvider = ({children} : {children: React.ReactNode}) => {
     setToken(null);
   }
 
+  useEffect(() => {
+    const handleStorageChange = () => {
+      console.log("handleStorageChange")
+      const storedToken = localStorage.getItem("token");
+
+      if (storedToken !== token) {
+        setToken(storedToken); // Update the state if localStorage token changes
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    // Cleanup the event listener
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [token]);
+
   return (
-    <AuthContext.Provider value = {{token, login, logout}}>
+    <AuthContext.Provider value = {{token, setAuthToken, logout}}>
       {children}
     </AuthContext.Provider>
   )
