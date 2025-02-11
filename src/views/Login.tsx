@@ -1,26 +1,32 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { login } from "../api";
+import { useAuth } from "../auth/AuthContext";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
+  const { setAuthToken, token } = useAuth()
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/", { replace: true });
+  const handleLogin = (e: React.KeyboardEvent) => {
+    if(e.type === "click" || e.key === "Enter") {
+      login({username, password}).then(resp => {
+        setAuthToken(resp.responseObject.toString())
+        console.log(token)
+      })
     }
-  }, [isAuthenticated, navigate]);
-
-  const handleLogin = () => {
-    
   };
 
   const navigateToRegister = () => {
     navigate("/register");
   };
+
+  useEffect(() => {
+    if(token) {
+      navigate("/")
+    }
+  }, [token, navigate])
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-gray-900">
@@ -38,6 +44,7 @@ const Login = () => {
               className="mt-1 w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 dark:text-gray-200"
               placeholder="Username"
               value={username}
+              onKeyDown={handleLogin}
               onChange={(e) => setUsername(e.target.value)}
               required
             />
@@ -51,6 +58,7 @@ const Login = () => {
               className="mt-1 w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 dark:text-gray-200"
               placeholder="Password"
               value={password}
+              onKeyDown={handleLogin}
               onChange={(e) => setPassword(e.target.value)}
               required
             />

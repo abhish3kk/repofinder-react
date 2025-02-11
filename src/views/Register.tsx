@@ -28,9 +28,7 @@ const Register = () => {
   const handleRegister = async () => {
     const response = await register(user);
     if(response && response.responseObject) {
-      localStorage.setItem('jwt', response.responseObject.toString())
-      localStorage.setItem("isAuthenticated", "true")
-      navigate("/", {replace: true})
+      navigate("/login", {replace: true})
     }
   }
 
