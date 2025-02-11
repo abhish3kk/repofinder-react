@@ -1,21 +1,21 @@
 import { useState } from "react";
-import { RegisterUser } from "../app.models";
+import { RegisterUser } from "../models/app.models";
+import { Link, useNavigate } from "react-router";
+import { getUserDetails, register } from "../api";
 
 const Register = () => {
   const [user, setUser] = useState<RegisterUser>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    country: "",
+    firstname: "",
+    lastname: "",
+    username: "",
     password: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
-    console.log("handleChange", { name, value });
     setUser({ ...user, [name]: value });
   };
 
@@ -25,9 +25,15 @@ const Register = () => {
     );
   };
 
-  const register = () => {
-    console.log(user);
-  };
+  const handleRegister = async () => {
+    const response = await register(user);
+    if(response && response.responseObject) {
+      localStorage.setItem('jwt', response.responseObject.toString())
+      localStorage.setItem("isAuthenticated", "true")
+      await getUserDetails()
+      navigate("/", {replace: true})
+    }
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-gray-900">
@@ -35,7 +41,7 @@ const Register = () => {
         <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-gray-100">
           Register
         </h2>
-        <form className="space-y-4">
+        <div className="space-y-4">
           <div className="flex flex-col sm:flex-row gap-4 w-full">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -45,8 +51,8 @@ const Register = () => {
                 type="text"
                 className="mt-1 w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 dark:text-gray-200"
                 placeholder="Firstname"
-                name="firstName"
-                value={user?.firstName}
+                name="firstname"
+                value={user?.firstname}
                 onChange={handleChange}
                 required
               />
@@ -59,8 +65,8 @@ const Register = () => {
                 type="text"
                 className="mt-1 w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 dark:text-gray-200"
                 placeholder="LastName"
-                name="lastName"
-                value={user?.lastName}
+                name="lastname"
+                value={user?.lastname}
                 onChange={handleChange}
                 required
               />
@@ -68,47 +74,17 @@ const Register = () => {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-              Email
+              Username
             </label>
             <input
-              type="email"
+              type="text"
               className="mt-1 w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 dark:text-gray-200"
-              placeholder="Enter your email"
-              name="email"
-              value={user?.email}
+              placeholder="username"
+              name="username"
+              value={user?.username}
               onChange={handleChange}
               required
             />
-          </div>
-          <div className="flex flex-col sm:flex-row gap-4 w-full">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Country
-              </label>
-              <input
-                type="text"
-                className="mt-1 w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 dark:text-gray-200"
-                placeholder="Country"
-                name="country"
-                value={user?.country}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Phone
-              </label>
-              <input
-                type="text"
-                className="mt-1 w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 dark:text-gray-200"
-                placeholder="Phone"
-                name="phone"
-                value={user?.phone}
-                onChange={handleChange}
-                required
-              />
-            </div>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -125,14 +101,17 @@ const Register = () => {
             />
           </div>
           <button
-            type="submit"
-            className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
+            className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg cursor-pointer hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-default"
             disabled={checkDisabled()}
-            onClick={register}
+            onClick={handleRegister}
           >
             Register
           </button>
-        </form>
+          <p className="mt-2 text-sm dark:text-white text-gray-600 w-full">
+            Already have an account?
+            <Link to="/login" className="text-blue-600  hover:underline">Sign in</Link>
+          </p>
+        </div>
       </div>
     </div>
   );

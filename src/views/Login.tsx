@@ -59,7 +59,7 @@ const Login = () => {
           <div className="flex flex-col sm:flex-row gap-4 w-full">
             <button
               type="submit"
-              className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
+              className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 cursor-pointer disabled:bg-gray-400 disabled:cursor-default"
               disabled={!email || !password}
               onClick={handleLogin}
             >
@@ -67,7 +67,7 @@ const Login = () => {
             </button>
             <button
               type="submit"
-              className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
+              className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 cursor-pointer"
               onClick={navigateToRegister}
             >
               Register
