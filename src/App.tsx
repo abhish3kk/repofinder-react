@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router";
 import "./App.css";
 import routes from "./routes";
 import ProtectedRoute from "./auth/ProtectedRoute";
-import { useAuth } from "./auth/AuthContext";
+import { useAuth } from "./contexts/AuthContext";
 
 function App() {
   const {token } = useAuth()
