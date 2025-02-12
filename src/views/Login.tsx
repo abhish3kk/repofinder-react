@@ -3,12 +3,14 @@ import { useNavigate } from "react-router";
 import { login } from "../api";
 import { useAuth } from "../contexts/AuthContext";
 import { useLoader } from "../contexts/LoaderContext";
+import { useNotification } from "../contexts/NotificationContext";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { setAuthToken, token } = useAuth()
   const {startLoading, stopLoading} = useLoader()
+  const {state, dispatch} = useNotification()
   const navigate = useNavigate();
 
   const handleLogin = (e: React.KeyboardEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement>) => {
@@ -17,8 +19,28 @@ const Login = () => {
       login({username, password}).then(resp => {
         if(resp.responseObject) {
           setAuthToken(resp.responseObject.toString())
-          console.log(token)
+          dispatch({
+            type: "ADD_NOTIFICATION",
+            payload: {
+              id: state.notifications.length+1,
+              message: resp.message,
+              type: "success"
+            }
+          })
         }
+      }).catch((error) => {
+        let message = error
+        if(error && error.response) {
+          message = error.response.data?.message ? error.response.data.message  : error.response.data
+        }
+        dispatch({
+          type: "ADD_NOTIFICATION",
+          payload: {
+            id: state.notifications.length+1,
+            message: message,
+            type: "error"
+          }
+        })
       }).finally(() => {
         stopLoading()
       })
