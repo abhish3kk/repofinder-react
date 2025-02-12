@@ -2,6 +2,7 @@ import React, { createContext, useContext, useReducer } from "react";
 
 type LoaderState = {
   isLoading: boolean
+  
   startLoading: () => void;
   stopLoading: () => void;
 }
