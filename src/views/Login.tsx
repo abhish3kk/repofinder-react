@@ -15,8 +15,10 @@ const Login = () => {
     if(e.type === "click" ||("key" in e &&  e.key === "Enter")) {
       startLoading()
       login({username, password}).then(resp => {
-        setAuthToken(resp.responseObject.toString())
-        console.log(token)
+        if(resp.responseObject) {
+          setAuthToken(resp.responseObject.toString())
+          console.log(token)
+        }
       }).finally(() => {
         stopLoading()
       })

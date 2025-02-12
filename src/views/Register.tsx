@@ -2,6 +2,7 @@ import { useState } from "react";
 import { RegisterUser } from "../models/app.models";
 import { Link, useNavigate } from "react-router";
 import { register } from "../api";
+import { useLoader } from "../contexts/LoaderContext";
 
 const Register = () => {
   const [user, setUser] = useState<RegisterUser>({
@@ -10,6 +11,7 @@ const Register = () => {
     username: "",
     password: "",
   });
+  const {startLoading, stopLoading} = useLoader()
   const navigate = useNavigate();
 
   const handleChange = (
@@ -26,7 +28,9 @@ const Register = () => {
   };
 
   const handleRegister = async () => {
+    startLoading()
     const response = await register(user);
+    stopLoading()
     if(response && response.responseObject) {
       navigate("/login", {replace: true})
     }
