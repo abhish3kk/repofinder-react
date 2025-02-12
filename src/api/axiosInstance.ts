@@ -10,11 +10,9 @@ const axiosInstance = axios.create({
   timeout: 5000,
 });
 
-// Add request interceptor (if needed)
 axiosInstance.interceptors.request.use(
   (config) => {
-    // // Example: Add Authorization token if available
-    const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem("token");
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -24,7 +22,6 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Add response interceptor (if needed)
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {

@@ -15,6 +15,6 @@ export const login = async (payload: LoginRequest) => {
 }
 
 export const getUserDetails = async () => {
-  const response = await axiosInstance.get(API_ENDPOINTS.GET_USER_DETAILS);
+  const response = await axiosInstance.get(API_ENDPOINTS.VALIDATE_AUTH);
   return response.data as ResponseObject;
 }
