@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { login } from "../api";
-import { useAuth } from "../auth/AuthContext";
+import { useAuth } from "../contexts/AuthContext";
+import { useLoader } from "../contexts/LoaderContext";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { setAuthToken, token } = useAuth()
+  const {startLoading, stopLoading} = useLoader()
   const navigate = useNavigate();
 
   const handleLogin = (e: React.KeyboardEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement>) => {
     if(e.type === "click" ||("key" in e &&  e.key === "Enter")) {
+      startLoading()
       login({username, password}).then(resp => {
         setAuthToken(resp.responseObject.toString())
         console.log(token)
+      }).finally(() => {
+        stopLoading()
       })
     }
   };
