@@ -11,7 +11,6 @@ const ProtectedRoute = ({children, isProtected = false}: ProtectedRouteProps) =>
   const { token } = useAuth();
   const location = useLocation();
 
-  console.log("ProtectedRoute", token, isProtected)
   if (token && !isProtected) {
     return <Navigate to="/" replace />; // Redirect to home if token exists
   }

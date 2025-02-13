@@ -12,6 +12,8 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@chakra-ui/avatar": "^2.3.0",
+    "@headlessui/react": "^2.2.0",
     "@tailwindcss/vite": "^4.0.4",
     "axios": "^1.7.9",
     "lucide-react": "^0.475.0",

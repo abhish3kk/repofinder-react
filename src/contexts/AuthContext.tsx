@@ -54,7 +54,6 @@ export const AuthProvider = ({children} : {children: React.ReactNode}) => {
       } catch (error: any) {
         console.error("Token validation failed:", error);
         if(error && error.response && error.response.data) {
-          console.log((error.response.data as ResponseObject).statusCode)
           dispatch({
             type: "ADD_NOTIFICATION",
             payload: {
@@ -85,7 +84,6 @@ export const AuthProvider = ({children} : {children: React.ReactNode}) => {
 
   useEffect(() => {
     const handleStorageChange = () => {
-      console.log("handleStorageChange")
       const storedToken = localStorage.getItem("token");
 
       if (storedToken !== token) {
