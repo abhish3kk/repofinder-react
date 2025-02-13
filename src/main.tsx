@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router";
 import "./index.css";
 import { AuthProvider } from "./contexts/AuthContext";
 import App from "./App";
-import Darklight from "./components/darklight";
+import Darklight from "./components/Darklight";
 import { LoaderProvider } from "./contexts/LoaderContext";
 import Loader from "./components/Loader";
 import Toast from "./components/Toast";
