@@ -2,6 +2,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { getUserDetails } from "../api";
 import { useLoader } from "./LoaderContext";
 import { ResponseObject } from "../models/api.response";
+import { useNotification } from "./NotificationContext";
+import { useAuthStore, User } from "../store/authStore";
 interface AuthContextType {
   token: string | null;
   setAuthToken: (token: string) => void;
@@ -13,7 +15,8 @@ const AuthContext = createContext<AuthContextType | null>(null);
 export const AuthProvider = ({children} : {children: React.ReactNode}) => {
   const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
   const {startLoading, stopLoading} = useLoader()
-
+  const { state, dispatch } = useNotification()
+  const {setUser} = useAuthStore()
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
@@ -37,14 +40,42 @@ export const AuthProvider = ({children} : {children: React.ReactNode}) => {
         return
       try {
         startLoading()
-        await getUserDetails()
+        const response = await getUserDetails()
+        const user = response.responseObject as User
+        setUser(user)
+        dispatch({
+          type: "ADD_NOTIFICATION",
+          payload: {
+            id: state.notifications.length+1,
+            message: response.message,
+            type: "success"
+          }
+        })
       } catch (error: any) {
         console.error("Token validation failed:", error);
         if(error && error.response && error.response.data) {
           console.log((error.response.data as ResponseObject).statusCode)
-          localStorage.removeItem("token");
-          setToken(null);
+          dispatch({
+            type: "ADD_NOTIFICATION",
+            payload: {
+              id: state.notifications.length+1,
+              message: (error.response.data as ResponseObject).message,
+              type: "error"
+            }
+          })
+        } else {
+          dispatch({
+            type: "ADD_NOTIFICATION",
+            payload: {
+              id: state.notifications.length+1,
+              message: "Token validation failed",
+              type: "error"
+            }
+          })
         }
+        setUser(null)
+        localStorage.removeItem("token");
+        setToken(null);
       } finally {
         stopLoading()
       }

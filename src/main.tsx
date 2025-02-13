@@ -12,14 +12,14 @@ import { NotificationProvider } from "./contexts/NotificationContext";
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
     <LoaderProvider>
-      <AuthProvider>
-        <NotificationProvider>
+      <NotificationProvider>
+        <AuthProvider>
           <App />
           <Darklight />
           <Loader />
           <Toast />
-        </NotificationProvider>
-      </AuthProvider>
+        </AuthProvider>
+      </NotificationProvider>
     </LoaderProvider>
   </BrowserRouter>
 );
