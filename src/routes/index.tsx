@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import Home from "../views/Home";
+import Dashboard from "../views/Dashboard";
 import Login from "../views/Login";
 import Register from "../views/Register";
 
@@ -12,7 +12,7 @@ interface RouteDefinition {
 const routes: RouteDefinition[] = [
   { path: "/login", element: <Login />},
   { path: "/register", element: <Register />},
-  { path: "/", element: <Home />, isProtected: true }
+  { path: "/", element: <Dashboard />, isProtected: true }
 ];
 
 export default routes;

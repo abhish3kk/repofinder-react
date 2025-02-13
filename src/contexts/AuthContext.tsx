@@ -43,14 +43,6 @@ export const AuthProvider = ({children} : {children: React.ReactNode}) => {
         const response = await getUserDetails()
         const user = response.responseObject as User
         setUser(user)
-        dispatch({
-          type: "ADD_NOTIFICATION",
-          payload: {
-            id: state.notifications.length+1,
-            message: response.message,
-            type: "success"
-          }
-        })
       } catch (error: any) {
         console.error("Token validation failed:", error);
         if(error && error.response && error.response.data) {

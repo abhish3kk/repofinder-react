@@ -18,7 +18,7 @@ const Darklight = () => {
   return (
     <button
       onClick={() => setDarkMode(!darkMode)}
-      className="absolute bottom-4 right-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700 shadow-md cursor-pointer"
+      className="fixed bottom-4 right-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700 shadow-md cursor-pointer"
     >
       {darkMode ? (
         <SunIcon className="h-6 w-6 text-yellow-500" />
