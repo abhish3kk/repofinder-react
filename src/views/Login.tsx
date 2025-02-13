@@ -32,6 +32,8 @@ const Login = () => {
         let message = error
         if(error && error.response) {
           message = error.response.data?.message ? error.response.data.message  : error.response.data
+        } else if (error.message) {
+          message = error.message
         }
         dispatch({
           type: "ADD_NOTIFICATION",

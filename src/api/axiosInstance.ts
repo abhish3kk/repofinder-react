@@ -1,7 +1,6 @@
 import axios from "axios";
 import { API_ROOT } from "./config";
 
-
 const axiosInstance = axios.create({
   baseURL: API_ROOT,
   headers: {
@@ -26,6 +25,9 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     console.error("API Error:", error);
+    if(error.response && error.response.status === 401) {
+      localStorage.removeItem("token")
+    }
     return Promise.reject(error);
   }
 );
