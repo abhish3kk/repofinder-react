@@ -27,7 +27,7 @@ const Toast = () => {
   }, [state.notifications, dispatch])
 
   return (
-    <div className="fixed right-4 top-4 space-y-2">
+    <div className="fixed left-1/2 top-10 transform -translate-x-1/2  space-y-2">
       {state.notifications.map((notification, index) => (
         <div 
           id="toast-success" 
