@@ -3,10 +3,12 @@ import { useAuthStore } from '../store/authStore'
 import {Avatar} from '@chakra-ui/avatar'
 import { LogOutIcon, SettingsIcon, UserIcon } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
+import { useNavigate } from 'react-router'
 
-export default function Dropdown() {
+export default function UserDropdown() {
   const {user} = useAuthStore()
   const { logout } = useAuth()
+  const navigate  = useNavigate()
   
   return (
     <div className="fixed right-4 top-4 w-auto text-right">
@@ -27,7 +29,7 @@ export default function Dropdown() {
           </MenuItem>
           <div className="my-1 h-px dark:bg-white/5 bg-gray-800/5" />
           <MenuItem>
-            <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-black/10 dark:data-[focus]:bg-white/10 cursor-pointer text-gray-800 dark:text-gray-100">
+            <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-black/10 dark:data-[focus]:bg-white/10 cursor-pointer text-gray-800 dark:text-gray-100" onClick={() => navigate("/settings", {replace: true})}>
               <SettingsIcon />
               Settings
             </button>
