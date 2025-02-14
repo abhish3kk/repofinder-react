@@ -26,6 +26,8 @@ const Toast = () => {
     });
   }, [state.notifications, dispatch])
 
+  if(!state.notifications.length) return <></>
+
   return (
     <div className="fixed left-1/2 top-10 transform -translate-x-1/2  space-y-2">
       {state.notifications.map((notification, index) => (

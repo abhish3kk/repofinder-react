@@ -1,25 +1,17 @@
-import Dropdown from "../components/Dropdown";
-import Nav from "../components/Nav";
-import data from '../assets/repos.json'
-import { GitHubRepository } from "../models/github.model";
-import Card from "../components/Card";
+import { Link, Outlet } from "react-router";
+import UserDropdown from "../components/UserDropdown";
+import reactLogo from '../assets/react.svg'
 
 function Home() {
-  const repos = data.items as GitHubRepository[]
   return (
     <div className="bg-white dark:bg-black ">
-      <Dropdown />
-      <div className="flex flex-col min-h-screen ">
-        <div className="h-16" />
-        <Nav />
-        <div className="flex flex-1 justify-center px-4 sm:px-6 lg:px-8">
-          <div className="w-full max-w-4xl shadow-md rounded-lg p-4 space-y-4">
-            {repos.map((repo) => (
-              <Card key={repo.id} repo={ repo } />
-            ))}
-          </div>
-        </div>
-      </div>
+      <Link to="/" className="fixed left-4 top-4 w-auto text-right">
+        <img src={reactLogo} className="mr-3 h-6 sm:h-9"/>
+      </Link>
+      <UserDropdown />
+      <main>
+        <Outlet />
+      </main>
     </div>
   );
 }
