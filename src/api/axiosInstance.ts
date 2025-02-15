@@ -15,21 +15,21 @@ axiosInstance.interceptors.request.use(
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-    config.withCredentials = true
+    config.withCredentials = true;
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     console.error("API Error:", error);
-    if(error.response && error.response.status === 401) {
-      localStorage.removeItem("token")
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem("token");
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export default axiosInstance;

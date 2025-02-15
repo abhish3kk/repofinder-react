@@ -11,7 +11,7 @@ const Register = () => {
     username: "",
     password: "",
   });
-  const {startLoading, stopLoading} = useLoader()
+  const { startLoading, stopLoading } = useLoader();
   const navigate = useNavigate();
 
   const handleChange = (
@@ -28,13 +28,13 @@ const Register = () => {
   };
 
   const handleRegister = async () => {
-    startLoading()
+    startLoading();
     const response = await register(user);
-    stopLoading()
-    if(response && response.responseObject) {
-      navigate("/login", {replace: true})
+    stopLoading();
+    if (response && response.responseObject) {
+      navigate("/login", { replace: true });
     }
-  }
+  };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-gray-900">
@@ -110,7 +110,9 @@ const Register = () => {
           </button>
           <p className="mt-2 text-sm dark:text-white text-gray-600 w-full">
             Already have an account?
-            <Link to="/login" className="text-blue-600  hover:underline">Sign in</Link>
+            <Link to="/login" className="text-blue-600  hover:underline">
+              Sign in
+            </Link>
           </p>
         </div>
       </div>

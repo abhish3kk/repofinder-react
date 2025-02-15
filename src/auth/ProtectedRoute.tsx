@@ -1,13 +1,16 @@
 import { Navigate, useLocation } from "react-router";
-import { useAuth } from "../contexts/AuthContext"
+import { useAuth } from "../contexts/AuthContext";
 import { JSX } from "react";
 
 interface ProtectedRouteProps {
   children: JSX.Element;
-  isProtected?: boolean
+  isProtected?: boolean;
 }
 
-const ProtectedRoute = ({children, isProtected = false}: ProtectedRouteProps) => {
+const ProtectedRoute = ({
+  children,
+  isProtected = false,
+}: ProtectedRouteProps) => {
   const { token } = useAuth();
   const location = useLocation();
 
@@ -20,6 +23,6 @@ const ProtectedRoute = ({children, isProtected = false}: ProtectedRouteProps) =>
   }
 
   return children;
-}
+};
 
-export default ProtectedRoute
+export default ProtectedRoute;

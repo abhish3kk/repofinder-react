@@ -24,14 +24,16 @@ const NotificationContext = createContext({
 
 const notificationReducer = (
   state: NotificationState,
-  action: NotificationAction
+  action: NotificationAction,
 ): NotificationState => {
   switch (action.type) {
     case "ADD_NOTIFICATION":
       return { notifications: [...state.notifications, action.payload] };
     case "REMOVE_NOTIFICATION":
       return {
-        notifications: state.notifications.filter((n) => n.id !== action.payload),
+        notifications: state.notifications.filter(
+          (n) => n.id !== action.payload,
+        ),
       };
     default:
       return state;
@@ -50,6 +52,9 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
 
 export const useNotification = () => {
   const context = useContext(NotificationContext);
-  if (!context) throw new Error("useNotification must be used within a NotificationProvider");
+  if (!context)
+    throw new Error(
+      "useNotification must be used within a NotificationProvider",
+    );
   return context;
 };

@@ -1,6 +1,5 @@
 import { API_ROOT } from "./config";
 
-
 export const API_ENDPOINTS = {
   LOGIN: `${API_ROOT}/auth/login`,
   REGISTER: `${API_ROOT}/users/create`,
@@ -11,5 +10,5 @@ export const API_ENDPOINTS = {
 
 export const GITHUB_API = {
   REPOS: `${API_ROOT}/repos`,
-  STARRED: `${API_ROOT}/repos/starred`
-}
+  STARRED: `${API_ROOT}/repos/starred`,
+};

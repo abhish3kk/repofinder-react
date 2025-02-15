@@ -1,12 +1,10 @@
-import { GitHubRepository } from "../models/github.model"
+import { GitHubRepository } from "../models/github.model";
 
 interface CardProps {
-  repo: GitHubRepository
-} 
+  repo: GitHubRepository;
+}
 
-
-const Card = ({repo} : CardProps) => {
-
+const Card = ({ repo }: CardProps) => {
   return (
     <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-4 border border-gray-200 dark:border-gray-800">
       <h3 className="text-lg font-semibold text-blue-600 dark:text-blue-400">
@@ -23,7 +21,7 @@ const Card = ({repo} : CardProps) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;
