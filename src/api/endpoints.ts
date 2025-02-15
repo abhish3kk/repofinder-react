@@ -8,3 +8,8 @@ export const API_ENDPOINTS = {
   FETCH_REPOS: `${API_ROOT}/repos`,
   FAVORITES: `${API_ROOT}/favorites`,
 };
+
+export const GITHUB_API = {
+  REPOS: `${API_ROOT}/repos`,
+  STARRED: `${API_ROOT}/repos/starred`
+}
