@@ -6,24 +6,24 @@ import Settings from "../views/Settings";
 import MainContent from "../components/MainContent";
 
 interface RouteDefinition {
-  path: string
-  element: JSX.Element
-  isProtected?: boolean,
-  children?: RouteDefinition[]
+  path: string;
+  element: JSX.Element;
+  isProtected?: boolean;
+  children?: RouteDefinition[];
 }
 
 const routes: RouteDefinition[] = [
-  { path: "/login", element: <Login />},
-  { path: "/register", element: <Register />},
-  { 
-    path: "/", 
-    element: <Dashboard />, 
-    isProtected: true ,
+  { path: "/login", element: <Login /> },
+  { path: "/register", element: <Register /> },
+  {
+    path: "/",
+    element: <Dashboard />,
+    isProtected: true,
     children: [
       { path: "", element: <MainContent />, isProtected: true },
       { path: "settings", element: <Settings />, isProtected: true },
-      { path: ":category", element: <MainContent />, isProtected: true }
-    ]
+      { path: ":category", element: <MainContent />, isProtected: true },
+    ],
   },
 ];
 

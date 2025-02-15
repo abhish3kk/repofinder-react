@@ -8,44 +8,53 @@ import { useNotification } from "../contexts/NotificationContext";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { setAuthToken, token } = useAuth()
-  const {startLoading, stopLoading} = useLoader()
-  const {state, dispatch} = useNotification()
+  const { setAuthToken, token } = useAuth();
+  const { startLoading, stopLoading } = useLoader();
+  const { state, dispatch } = useNotification();
   const navigate = useNavigate();
 
-  const handleLogin = (e: React.KeyboardEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement>) => {
-    if(e.type === "click" ||("key" in e &&  e.key === "Enter")) {
-      startLoading()
-      login({username, password}).then(resp => {
-        if(resp.responseObject) {
-          setAuthToken(resp.responseObject.toString())
+  const handleLogin = (
+    e:
+      | React.KeyboardEvent<HTMLInputElement>
+      | React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    if (e.type === "click" || ("key" in e && e.key === "Enter")) {
+      startLoading();
+      login({ username, password })
+        .then((resp) => {
+          if (resp.responseObject) {
+            setAuthToken(resp.responseObject.toString());
+            dispatch({
+              type: "ADD_NOTIFICATION",
+              payload: {
+                id: state.notifications.length + 1,
+                message: resp.message,
+                type: "success",
+              },
+            });
+          }
+        })
+        .catch((error) => {
+          let message = error;
+          if (error && error.response) {
+            message = error.response.data?.message
+              ? error.response.data.message
+              : error.response.data;
+          } else if (error.message) {
+            message = error.message;
+          }
           dispatch({
             type: "ADD_NOTIFICATION",
             payload: {
-              id: state.notifications.length+1,
-              message: resp.message,
-              type: "success"
-            }
-          })
-        }
-      }).catch((error) => {
-        let message = error
-        if(error && error.response) {
-          message = error.response.data?.message ? error.response.data.message  : error.response.data
-        } else if (error.message) {
-          message = error.message
-        }
-        dispatch({
-          type: "ADD_NOTIFICATION",
-          payload: {
-            id: state.notifications.length+1,
-            message: message,
-            type: "error"
-          }
+              id: state.notifications.length + 1,
+              message: message,
+              type: "error",
+            },
+          });
         })
-      }).finally(() => {
-        stopLoading()
-      })
+        .finally(() => {
+          stopLoading();
+        });
     }
   };
 
@@ -54,10 +63,10 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if(token) {
-      navigate("/")
+    if (token) {
+      navigate("/");
     }
-  }, [token, navigate])
+  }, [token, navigate]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-gray-900">

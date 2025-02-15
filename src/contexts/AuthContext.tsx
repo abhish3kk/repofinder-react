@@ -12,11 +12,13 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-export const AuthProvider = ({children} : {children: React.ReactNode}) => {
-  const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
-  const {startLoading, stopLoading} = useLoader()
-  const { state, dispatch } = useNotification()
-  const {setUser} = useAuthStore()
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [token, setToken] = useState<string | null>(
+    localStorage.getItem("token"),
+  );
+  const { startLoading, stopLoading } = useLoader();
+  const { state, dispatch } = useNotification();
+  const { setUser } = useAuthStore();
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
@@ -24,55 +26,54 @@ export const AuthProvider = ({children} : {children: React.ReactNode}) => {
     }
   }, []);
 
-  const setAuthToken = (newToken : string) => {
+  const setAuthToken = (newToken: string) => {
     setToken(newToken);
     localStorage.setItem("token", newToken);
-  }
+  };
 
   const logout = () => {
     localStorage.removeItem("token");
     setToken(null);
-  }
+  };
 
   useEffect(() => {
     const validateToken = async () => {
-      if(!token)
-        return
+      if (!token) return;
       try {
-        startLoading()
-        const response = await getUserDetails()
-        const user = response.responseObject as User
-        setUser(user)
+        startLoading();
+        const response = await getUserDetails();
+        const user = response.responseObject as User;
+        setUser(user);
       } catch (error: any) {
         console.error("Token validation failed:", error);
-        if(error && error.response && error.response.data) {
+        if (error && error.response && error.response.data) {
           dispatch({
             type: "ADD_NOTIFICATION",
             payload: {
-              id: state.notifications.length+1,
+              id: state.notifications.length + 1,
               message: (error.response.data as ResponseObject).message,
-              type: "error"
-            }
-          })
+              type: "error",
+            },
+          });
         } else {
           dispatch({
             type: "ADD_NOTIFICATION",
             payload: {
-              id: state.notifications.length+1,
+              id: state.notifications.length + 1,
               message: "Token validation failed",
-              type: "error"
-            }
-          })
+              type: "error",
+            },
+          });
         }
-        setUser(null)
+        setUser(null);
         localStorage.removeItem("token");
         setToken(null);
       } finally {
-        stopLoading()
+        stopLoading();
       }
-    }
-    validateToken()
-  }, [token])
+    };
+    validateToken();
+  }, [token]);
 
   useEffect(() => {
     const handleStorageChange = () => {
@@ -90,15 +91,15 @@ export const AuthProvider = ({children} : {children: React.ReactNode}) => {
   }, [token]);
 
   return (
-    <AuthContext.Provider value = {{token, setAuthToken, logout}}>
+    <AuthContext.Provider value={{ token, setAuthToken, logout }}>
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if(!context) throw new Error("useAuth must be used within an AuthProvider")
+  if (!context) throw new Error("useAuth must be used within an AuthProvider");
 
-  return context
-}
+  return context;
+};
