@@ -7,9 +7,14 @@ interface CardProps {
 const Card = ({ repo }: CardProps) => {
   return (
     <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-4 border border-gray-200 dark:border-gray-800">
-      <h3 className="text-lg font-semibold text-blue-600 dark:text-blue-400">
-        {repo.name}
-      </h3>
+      <a
+        href={repo.html_url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-lg font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+      >
+        <h3>{repo.name}</h3>
+      </a>
       <p className="text-gray-600 dark:text-gray-400 text-sm mt-1 overflow-hidden">
         {repo.description || "No description provided."}
       </p>

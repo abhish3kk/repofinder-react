@@ -1,5 +1,8 @@
 import { Link, useParams } from "react-router";
 import { useSettingsStore } from "../store/settingStore";
+import { getLabelFromOption } from "../utils/getLabelFromOption";
+import { enumToArray } from "../utils";
+import { GitHubTopic } from "../models/github.types";
 
 const Nav = () => {
   const { category } = useParams();
@@ -24,7 +27,7 @@ const Nav = () => {
           key={topic}
           to={`/${topic}`}
         >
-          {topic}
+          {getLabelFromOption(topic, enumToArray(GitHubTopic))}
         </Link>
       ))}
     </nav>

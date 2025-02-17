@@ -7,12 +7,13 @@ import { useEffect, useState } from "react";
 import { getRepos, getStarred } from "../api";
 import { GitHubSearchParams } from "../models/api.request.model";
 import { useLoader } from "../contexts/LoaderContext";
+import { useSettingsStore } from "../store/settingStore";
 
 const MainContent = () => {
   const [repos, setRepos] = useState(data.items as GitHubRepository[]);
   const { category } = useParams();
   const { startLoading, stopLoading } = useLoader();
-
+  const { languages, order, perPage, sort, starGazers } = useSettingsStore();
   useEffect(() => {
     const fetchRepos = async () => {
       startLoading();
@@ -23,6 +24,24 @@ const MainContent = () => {
         const searchParam: GitHubSearchParams = {
           q: `topic:${category}`,
         };
+        if (languages.length) {
+          searchParam.q = languages.reduce(
+            (q, language) => `${q}+language:${language}`,
+            searchParam.q,
+          );
+        }
+        if (starGazers) {
+          searchParam.q = `${searchParam.q}+${starGazers}`;
+        }
+        if (order) {
+          searchParam.q = `${searchParam.q}&order=${order}`;
+        }
+        if (perPage) {
+          searchParam.q = `${searchParam.q}&per_page=${perPage}`;
+        }
+        if (sort) {
+          searchParam.q = `${searchParam.q}&sort=${sort}`;
+        }
         const response = await getRepos(searchParam);
         setRepos((response.responseObject as GitHubSearchResponse).items);
       }

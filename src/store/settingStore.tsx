@@ -1,31 +1,40 @@
 import { create } from "zustand";
+import { GitHubOrder, GitHubSort, GitHubStars } from "../models/github.types";
 
 interface settingsState {
   topics: string[];
   languages: string[];
-  limit: number;
-  setTopic: (topic: string) => void;
-  setLanguage: (language: string) => void;
-  setLimit: (limit: number) => void;
+  perPage: number;
+  starGazers: GitHubStars;
+  sort: GitHubSort;
+  order: GitHubOrder;
+  setTopics: (topics: string[]) => void;
+  setLanguages: (languages: string[]) => void;
+  setPerPage: (perPage: number) => void;
+  setStarGazers: (value: GitHubStars) => void;
+  setSort: (value: GitHubSort) => void;
+  setOrder: (value: GitHubOrder) => void;
 }
 
 export const useSettingsStore = create<settingsState>((set) => ({
-  topics: ["react", "angular", "vue"],
-  languages: ["typescript", "javascript"],
-  limit: 5,
-  setTopic: (topic: string) => {
-    set((state) => {
-      state.topics = [...state.topics, topic];
-      return state;
-    });
+  topics: [],
+  languages: [],
+  perPage: 5,
+  starGazers: GitHubStars.Between50And100,
+  sort: GitHubSort.Stars,
+  order: GitHubOrder.Descending,
+  setTopics: (topics: string[]) => set({ topics: topics }),
+  setLanguages: (languages: string[]) => set({ languages: languages }),
+  setPerPage: (perPage: number) => {
+    set({ perPage: perPage });
   },
-  setLanguage: (language: string) => {
-    set((state) => {
-      state.languages = [...state.languages, language];
-      return state;
-    });
+  setStarGazers: (value: GitHubStars) => {
+    set({ starGazers: value });
   },
-  setLimit: (limit: number) => {
-    set({ limit: limit });
+  setSort: (value: GitHubSort) => {
+    set({ sort: value });
+  },
+  setOrder: (value: GitHubOrder) => {
+    set({ order: value });
   },
 }));
