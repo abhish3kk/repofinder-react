@@ -13,7 +13,7 @@ export interface User {
   firstname: string;
   lastname: string;
   username: string;
-  settings: Settings
+  settings: Settings;
 }
 
 interface AuthState {

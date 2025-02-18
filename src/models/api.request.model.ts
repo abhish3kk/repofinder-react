@@ -16,10 +16,10 @@ export interface GitHubSearchParams {
 }
 
 export interface SaveSettingsRequest {
-  topics: string,
-  languages: string,
-  perPage: number,
-  starGazers: string,
-  sort: string,
-  order: string,
+  topics: string;
+  languages: string;
+  perPage: number;
+  starGazers: string;
+  sort: string;
+  order: string;
 }

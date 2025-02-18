@@ -22,7 +22,7 @@ const Settings = () => {
   const [starSetting, setStarSetting] = useState<SettingsProps>();
   const [sortSetting, setSortSetting] = useState<SettingsProps>();
   const [orderSetting, setOrderSetting] = useState<SettingsProps>();
-  const {startLoading, stopLoading} = useLoader()
+  const { startLoading, stopLoading } = useLoader();
   const {
     setTopics,
     setLanguages,
@@ -101,7 +101,7 @@ const Settings = () => {
   }, []);
 
   const save = async () => {
-    startLoading()
+    startLoading();
     const request: SaveSettingsRequest = {
       topics: topics.join(","),
       languages: languages.join(","),
@@ -109,10 +109,10 @@ const Settings = () => {
       perPage: perPage,
       sort: sort,
       starGazers: starGazers,
-    }
-    await saveSettings(request)
-    stopLoading()
-  }
+    };
+    await saveSettings(request);
+    stopLoading();
+  };
 
   return (
     <div className="flex flex-col min-h-screen ">

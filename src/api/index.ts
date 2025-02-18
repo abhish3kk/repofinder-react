@@ -1,4 +1,8 @@
-import { GitHubSearchParams, LoginRequest, SaveSettingsRequest } from "../models/api.request.model";
+import {
+  GitHubSearchParams,
+  LoginRequest,
+  SaveSettingsRequest,
+} from "../models/api.request.model";
 import { ResponseObject } from "../models/api.response";
 import { RegisterUser } from "../models/app.models";
 import axiosInstance from "./axiosInstance";
@@ -33,7 +37,12 @@ export const getStarred = async (): Promise<ResponseObject> => {
   return response.data as ResponseObject;
 };
 
-export const saveSettings = async (payload: SaveSettingsRequest): Promise<ResponseObject> => {
-  const response = await axiosInstance.put(API_ENDPOINTS.SAVE_SETTINGS, payload);
+export const saveSettings = async (
+  payload: SaveSettingsRequest,
+): Promise<ResponseObject> => {
+  const response = await axiosInstance.put(
+    API_ENDPOINTS.SAVE_SETTINGS,
+    payload,
+  );
   return response.data as ResponseObject;
 };
