@@ -12,6 +12,9 @@ import {
 } from "../models/github.types";
 import { enumToArray } from "../utils";
 import { useSettingsStore } from "../store/settingStore";
+import { SaveSettingsRequest } from "../models/api.request.model";
+import { useLoader } from "../contexts/LoaderContext";
+import { saveSettings } from "../api";
 
 const Settings = () => {
   const [topicSetting, setTopicSetting] = useState<SettingsProps>();
@@ -19,6 +22,7 @@ const Settings = () => {
   const [starSetting, setStarSetting] = useState<SettingsProps>();
   const [sortSetting, setSortSetting] = useState<SettingsProps>();
   const [orderSetting, setOrderSetting] = useState<SettingsProps>();
+  const { startLoading, stopLoading } = useLoader();
   const {
     setTopics,
     setLanguages,
@@ -96,6 +100,20 @@ const Settings = () => {
     });
   }, []);
 
+  const save = async () => {
+    startLoading();
+    const request: SaveSettingsRequest = {
+      topics: topics.join(","),
+      languages: languages.join(","),
+      order: order,
+      perPage: perPage,
+      sort: sort,
+      starGazers: starGazers,
+    };
+    await saveSettings(request);
+    stopLoading();
+  };
+
   return (
     <div className="flex flex-col min-h-screen ">
       <div className="h-16" />
@@ -125,6 +143,15 @@ const Settings = () => {
                 value={perPage}
                 onChange={(e) => setPerPage(Number(e.target.value))}
               />
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 w-full">
+              <button
+                type="button"
+                className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 cursor-pointer disabled:bg-gray-400 disabled:cursor-default"
+                onClick={save}
+              >
+                Save
+              </button>
             </div>
           </div>
         </div>

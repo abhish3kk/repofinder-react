@@ -6,6 +6,7 @@ export const API_ENDPOINTS = {
   VALIDATE_AUTH: `${API_ROOT}/auth`,
   FETCH_REPOS: `${API_ROOT}/repos`,
   FAVORITES: `${API_ROOT}/favorites`,
+  SAVE_SETTINGS: `${API_ROOT}/settings`,
 };
 
 export const GITHUB_API = {
