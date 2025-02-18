@@ -14,3 +14,12 @@ export interface GitHubSearchParams {
   pushed?: string;
   user?: string;
 }
+
+export interface SaveSettingsRequest {
+  topics: string,
+  languages: string,
+  perPage: number,
+  starGazers: string,
+  sort: string,
+  order: string,
+}

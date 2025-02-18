@@ -1,10 +1,19 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+interface Settings {
+  topics: string;
+  languages: string;
+  perPage: number;
+  starGazers: string;
+  sort: string;
+  order: string;
+}
 export interface User {
   firstname: string;
   lastname: string;
   username: string;
+  settings: Settings
 }
 
 interface AuthState {

@@ -4,6 +4,8 @@ import { useLoader } from "./LoaderContext";
 import { ResponseObject } from "../models/api.response";
 import { useNotification } from "./NotificationContext";
 import { useAuthStore, User } from "../store/authStore";
+import { useSettingsStore } from "../store/settingStore";
+import { GitHubOrder, GitHubSort, GitHubStars } from "../models/github.types";
 interface AuthContextType {
   token: string | null;
   setAuthToken: (token: string) => void;
@@ -19,6 +21,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { startLoading, stopLoading } = useLoader();
   const { state, dispatch } = useNotification();
   const { setUser } = useAuthStore();
+  const {setTopics, setPerPage, setLanguages, setOrder, setSort, setStarGazers} = useSettingsStore();
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
@@ -44,6 +47,29 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         const response = await getUserDetails();
         const user = response.responseObject as User;
         setUser(user);
+        if(user.settings) {
+          const settings = user.settings
+          if(settings.topics) {
+            const topics = settings.topics.split(",");
+            setTopics(topics)
+          }
+          if(settings.languages) {
+            const languages = settings.languages.split(",");
+            setLanguages(languages)
+          }
+          if(settings.sort) {
+            setSort(settings.sort as GitHubSort)
+          }
+          if(settings.order) {
+            setOrder(settings.order as GitHubOrder)
+          }
+          if(settings.perPage) {
+            setPerPage(settings.perPage)
+          }
+          if(settings.starGazers) {
+            setStarGazers(settings.starGazers as GitHubStars)
+          }
+        }
       } catch (error: any) {
         console.error("Token validation failed:", error);
         if (error && error.response && error.response.data) {
