@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from "react-router";
-import { useAuth } from "../contexts/AuthContext";
 import { JSX } from "react";
+import { useAuth } from "../hooks";
 
 interface ProtectedRouteProps {
   children: JSX.Element;

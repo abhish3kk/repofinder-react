@@ -13,8 +13,8 @@ import {
 import { enumToArray } from "../utils";
 import { useSettingsStore } from "../store/settingStore";
 import { SaveSettingsRequest } from "../models/api.request.model";
-import { useLoader } from "../contexts/LoaderContext";
 import { saveSettings } from "../api";
+import { useLoader } from "../hooks";
 
 const Settings = () => {
   const [topicSetting, setTopicSetting] = useState<SettingsProps>();
@@ -98,7 +98,18 @@ const Settings = () => {
         }
       },
     });
-  }, []);
+  }, [
+    topics,
+    languages,
+    starGazers,
+    sort,
+    order,
+    setTopics,
+    setLanguages,
+    setStarGazers,
+    setSort,
+    setOrder,
+  ]);
 
   const save = async () => {
     startLoading();
@@ -118,7 +129,7 @@ const Settings = () => {
     <div className="flex flex-col min-h-screen ">
       <div className="h-16" />
       <div className="flex flex-1 justify-center px-4 sm:px-6 lg:px-8">
-        <div className="w-full max-w-xl shadow-md rounded-lg p-4 space-y-4 bg-white dark:bg-gray-900 rounded-lg shadow-md p-4 border border-gray-200 dark:border-gray-800 text-white">
+        <div className="w-full max-w-xl shadow-md rounded-lg p-4 space-y-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-white">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white text-center">
             Settings
           </h1>

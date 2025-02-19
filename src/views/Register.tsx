@@ -2,7 +2,7 @@ import { useState } from "react";
 import { RegisterUser } from "../models/app.models";
 import { Link, useNavigate } from "react-router";
 import { register } from "../api";
-import { useLoader } from "../contexts/LoaderContext";
+import { useLoader } from "../hooks";
 
 const Register = () => {
   const [user, setUser] = useState<RegisterUser>({

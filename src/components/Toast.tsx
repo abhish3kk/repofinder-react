@@ -1,6 +1,8 @@
 import { CircleCheck, CircleX, Info, X } from "lucide-react";
-import { Notification, useNotification } from "../contexts/NotificationContext";
+
 import { useEffect } from "react";
+import { useNotification } from "../hooks";
+import { Notification } from "../models/app.types";
 
 const Toast = () => {
   const { state, dispatch } = useNotification();

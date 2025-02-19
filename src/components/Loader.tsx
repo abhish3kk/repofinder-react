@@ -1,5 +1,5 @@
 import React from "react";
-import { useLoader } from "../contexts/LoaderContext";
+import { useLoader } from "../hooks";
 
 const Loader: React.FC = () => {
   const { isLoading } = useLoader();

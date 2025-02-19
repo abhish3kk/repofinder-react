@@ -7,7 +7,7 @@ import {
 } from "@headlessui/react";
 import clsx from "clsx";
 import { Check, ChevronDown, X } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export interface Option {
   label: string;
@@ -26,7 +26,9 @@ const SettingsDropdown: React.FC<{ setting: SettingsProps }> = ({
   setting,
 }) => {
   const [query, setQuery] = useState("");
-  const [selected, setSelected] = useState<Option[] | Option | null>(() => {
+  const [selected, setSelected] = useState<Option[] | Option | null>();
+
+  useEffect(() => {
     if (Array.isArray(setting.selected)) {
       let options: Option[] = [];
       setting.selected.forEach((item: string) => {
@@ -38,7 +40,7 @@ const SettingsDropdown: React.FC<{ setting: SettingsProps }> = ({
         };
         options = [...options, option];
       });
-      return options;
+      setSelected(options);
     } else {
       const option: Option = setting.options.find(
         (opt) => opt.value === setting.selected,
@@ -46,9 +48,9 @@ const SettingsDropdown: React.FC<{ setting: SettingsProps }> = ({
         label: setting.selected,
         value: setting.selected,
       };
-      return option;
+      setSelected(option);
     }
-  });
+  }, [setting]);
 
   const filteredSettingOptions =
     query === ""

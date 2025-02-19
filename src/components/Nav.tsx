@@ -1,7 +1,6 @@
 import { Link, useParams } from "react-router";
 import { useSettingsStore } from "../store/settingStore";
-import { getLabelFromOption } from "../utils/getLabelFromOption";
-import { enumToArray } from "../utils";
+import { enumToArray, getLabelFromOption } from "../utils";
 import { GitHubTopic } from "../models/github.types";
 
 const Nav = () => {
