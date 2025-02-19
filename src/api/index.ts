@@ -3,7 +3,7 @@ import {
   LoginRequest,
   SaveSettingsRequest,
 } from "../models/api.request.model";
-import { ResponseObject } from "../models/api.response";
+import { ResponseObject } from "../models/api.response.model";
 import { RegisterUser } from "../models/app.models";
 import axiosInstance from "./axiosInstance";
 import { API_ENDPOINTS, GITHUB_API } from "./endpoints";

@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { login } from "../api";
-import { useAuth } from "../contexts/AuthContext";
-import { useLoader } from "../contexts/LoaderContext";
-import { useNotification } from "../contexts/NotificationContext";
+import { useAuth, useLoader, useNotification } from "../hooks";
 
 const Login = () => {
   const [username, setUsername] = useState("");

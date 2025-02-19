@@ -1,25 +1,19 @@
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
 import "./index.css";
-import { AuthProvider } from "./contexts/AuthContext";
 import App from "./App";
 import Darklight from "./components/Darklight";
-import { LoaderProvider } from "./contexts/LoaderContext";
 import Loader from "./components/Loader";
 import Toast from "./components/Toast";
-import { NotificationProvider } from "./contexts/NotificationContext";
+import { AppProvider } from "./Provider";
 
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
-    <LoaderProvider>
-      <NotificationProvider>
-        <AuthProvider>
-          <App />
-          <Darklight />
-          <Loader />
-          <Toast />
-        </AuthProvider>
-      </NotificationProvider>
-    </LoaderProvider>
+    <AppProvider>
+      <App />
+      <Darklight />
+      <Loader />
+      <Toast />
+    </AppProvider>
   </BrowserRouter>,
 );

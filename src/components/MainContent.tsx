@@ -6,8 +6,8 @@ import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import { getRepos, getStarred } from "../api";
 import { GitHubSearchParams } from "../models/api.request.model";
-import { useLoader } from "../contexts/LoaderContext";
 import { useSettingsStore } from "../store/settingStore";
+import { useLoader } from "../hooks";
 
 const MainContent = () => {
   const [repos, setRepos] = useState(data.items as GitHubRepository[]);
@@ -15,8 +15,8 @@ const MainContent = () => {
   const { startLoading, stopLoading } = useLoader();
   const { languages, order, perPage, sort, starGazers } = useSettingsStore();
   useEffect(() => {
+    startLoading();
     const fetchRepos = async () => {
-      startLoading();
       if (!category || category === "favourites") {
         const response = await getStarred();
         setRepos((response.responseObject as GitHubSearchResponse).items);
@@ -48,7 +48,16 @@ const MainContent = () => {
       stopLoading();
     };
     fetchRepos();
-  }, [category]);
+  }, [
+    category,
+    languages,
+    order,
+    perPage,
+    sort,
+    starGazers,
+    startLoading,
+    stopLoading,
+  ]);
 
   return (
     <div className="flex flex-col min-h-screen ">

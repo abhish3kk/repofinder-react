@@ -1,9 +1,9 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { useAuthStore } from "../store/authStore";
 import { Avatar } from "@chakra-ui/avatar";
 import { LogOutIcon, SettingsIcon, UserIcon } from "lucide-react";
-import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router";
+import { useAuth } from "../hooks";
+import { useAuthStore } from "../store";
 
 export default function UserDropdown() {
   const { user } = useAuthStore();
@@ -22,7 +22,7 @@ export default function UserDropdown() {
         <MenuItems
           transition
           anchor="bottom end"
-          className="w-52 origin-top-right rounded-xl border border-black/5 dark:border-white/5 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 p-1 text-sm/6 text-white transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none  data-[closed]:opacity-0"
+          className="w-52 origin-top-right rounded-xl border border-black/5 dark:border-white/5 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 p-1 text-sm/6 transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none  data-[closed]:opacity-0"
         >
           <MenuItem>
             <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-black/10 dark:data-[focus]:bg-white/10 cursor-default text-gray-800 dark:text-gray-100">
