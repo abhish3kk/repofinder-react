@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  # vmImage: ubuntu-latest
+  # vmImage: ubuntu-latest test
   name: 'self-hosted'
 
 steps:
