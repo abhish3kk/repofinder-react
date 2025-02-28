@@ -13,7 +13,7 @@ jobs:
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
-    environment: production
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'development' }}
     name: Build and Deploy Job
     permissions:
        id-token: write
@@ -26,7 +26,11 @@ jobs:
       - name: Create .env file
         run: |
           echo "VITE_API_ROOT_API=${{ vars.VITE_API_ROOT_API }}" >> .env
-
+          
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.14.0'  # Ensures correct Node.js version
       - name: Install OIDC Client from Core Package
         run: npm install @actions/core@1.6.0 @actions/http-client
       - name: Get Id Token
