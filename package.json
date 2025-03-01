@@ -45,6 +45,9 @@
     "vite": "^6.1.0",
     "vitest": "^3.0.5"
   },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  },
   "engines": {
     "node": ">=22.14.0"
   }
