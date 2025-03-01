@@ -46,3 +46,8 @@ export const saveSettings = async (
   );
   return response.data as ResponseObject;
 };
+
+export const healthCheck = async (): Promise<ResponseObject> => {
+  const response = await axiosInstance.get(API_ENDPOINTS.HEALTH_CHECK);
+  return response.data as ResponseObject;
+};

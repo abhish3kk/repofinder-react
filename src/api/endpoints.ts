@@ -7,6 +7,7 @@ export const API_ENDPOINTS = {
   FETCH_REPOS: `${API_ROOT}/repos`,
   FAVORITES: `${API_ROOT}/favorites`,
   SAVE_SETTINGS: `${API_ROOT}/settings`,
+  HEALTH_CHECK: `${API_ROOT}/health-check`,
 };
 
 export const GITHUB_API = {

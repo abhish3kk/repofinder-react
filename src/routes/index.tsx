@@ -1,9 +1,10 @@
-import { JSX } from "react";
-import Dashboard from "../views/Dashboard";
-import Login from "../views/Login";
-import Register from "../views/Register";
-import Settings from "../views/Settings";
-import MainContent from "../components/MainContent";
+import { JSX, lazy } from "react";
+
+const Login = lazy(() => import("../views/Login"));
+const Register = lazy(() => import("../views/Register"));
+const Settings = lazy(() => import("../views/Settings"));
+const MainContent = lazy(() => import("../components/MainContent"));
+const Dashboard = lazy(() => import("../views/Dashboard"));
 
 interface RouteDefinition {
   path: string;
