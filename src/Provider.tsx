@@ -7,6 +7,7 @@ import {
 } from "./providers";
 import { ErrorBoundary } from "react-error-boundary";
 import { Error } from "./components/Error";
+import { HealthProvider } from "./providers/HealthProvider";
 
 type AppProviderProps = {
   children: React.ReactNode;
@@ -18,7 +19,9 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       <ErrorBoundary FallbackComponent={Error}>
         <LoaderProvider>
           <NotificationProvider>
-            <AuthProvider>{children}</AuthProvider>
+            <HealthProvider>
+              <AuthProvider>{children}</AuthProvider>
+            </HealthProvider>
           </NotificationProvider>
         </LoaderProvider>
       </ErrorBoundary>
