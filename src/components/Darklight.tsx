@@ -1,26 +1,34 @@
-"use client";
 import { MoonIcon, SunIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useAppStore } from "../store/appStore";
+import { APP_THEMES } from "../models/app.types";
+import { useEffect } from "react";
 
 const Darklight = () => {
-  const [darkMode, setDarkMode] = useState(
-    localStorage.getItem("theme") === "dark",
-  );
+  const { theme, setTheme } = useAppStore();
+
   useEffect(() => {
-    if (darkMode) {
-      localStorage.setItem("theme", "dark");
-      document.documentElement.setAttribute("data-theme", "dark");
+    if (theme) {
+      if (theme === APP_THEMES.DARK) {
+        document.documentElement.setAttribute("data-theme", APP_THEMES.DARK);
+      } else {
+        document.documentElement.setAttribute("data-theme", APP_THEMES.LIGHT);
+      }
     } else {
-      localStorage.setItem("theme", "light");
-      document.documentElement.removeAttribute("data-theme");
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
+      setTheme(prefersDark ? APP_THEMES.DARK : APP_THEMES.LIGHT);
     }
-  }, [darkMode]);
+  }, [theme, setTheme]);
+
   return (
     <button
-      onClick={() => setDarkMode(!darkMode)}
+      onClick={() =>
+        setTheme(theme === APP_THEMES.DARK ? APP_THEMES.LIGHT : APP_THEMES.DARK)
+      }
       className="fixed bottom-4 right-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700 shadow-md cursor-pointer"
     >
-      {darkMode ? (
+      {theme === APP_THEMES.DARK ? (
         <SunIcon className="h-6 w-6 text-yellow-500" />
       ) : (
         <MoonIcon className="h-6 w-6 text-gray-800" />

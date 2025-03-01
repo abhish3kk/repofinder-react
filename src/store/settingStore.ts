@@ -17,7 +17,7 @@ interface settingsState {
 }
 
 export const useSettingsStore = create<settingsState>((set) => ({
-  topics: [],
+  topics: ["react", "vue", "angular"],
   languages: [],
   perPage: 5,
   starGazers: GitHubStars.Between50And100,

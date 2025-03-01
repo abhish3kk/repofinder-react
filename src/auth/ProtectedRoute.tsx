@@ -15,7 +15,7 @@ const ProtectedRoute = ({
   const location = useLocation();
 
   if (token && !isProtected) {
-    return <Navigate to="/" replace />; // Redirect to home if token exists
+    return <Navigate to="/" replace />;
   }
 
   if (!token && isProtected) {

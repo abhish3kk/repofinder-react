@@ -18,11 +18,10 @@ const routes: RouteDefinition[] = [
   {
     path: "/",
     element: <Dashboard />,
-    isProtected: true,
     children: [
-      { path: "", element: <MainContent />, isProtected: true },
-      { path: "settings", element: <Settings />, isProtected: true },
-      { path: ":category", element: <MainContent />, isProtected: true },
+      { path: "", element: <MainContent /> },
+      { path: "settings", element: <Settings /> },
+      { path: ":category", element: <MainContent /> },
     ],
   },
 ];

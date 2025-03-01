@@ -2,7 +2,37 @@
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
+/* The below block is for user dropdown from hero icon to respect the scroll bar */
 html {
   padding-right: 0 !important;
   overflow-y: auto !important;
+}
+
+@theme {
+  --color-dark: #121212;
+  --color-light-gray: #bababa;
+}
+
+@layer base {
+  body {
+    @apply transition-colors duration-500 ease-in-out bg-white dark:bg-black;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  position: absolute;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #666;
 }

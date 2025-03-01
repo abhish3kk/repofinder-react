@@ -3,7 +3,7 @@ import routes from "./routes";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import { useAuth } from "./hooks";
 
-function App() {
+function AppRoutes() {
   const { token } = useAuth();
   return (
     <Routes>
@@ -34,4 +34,4 @@ function App() {
   );
 }
 
-export default App;
+export default AppRoutes;

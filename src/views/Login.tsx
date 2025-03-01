@@ -67,16 +67,12 @@ const Login = () => {
   }, [token, navigate]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-gray-900">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white dark:bg-gray-800 shadow-md rounded-2xl">
-        <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-gray-100">
-          Login
-        </h2>
+    <div className="flex min-h-screen items-center justify-center ">
+      <div className="w-full max-w-md p-8 space-y-6 bg-white dark:bg-gray-900 shadow-md rounded-2xl">
+        <h2 className="text-2xl font-bold text-center ">Login</h2>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-              Username
-            </label>
+            <label className="block text-sm font-medium">Username</label>
             <input
               type="text"
               className="mt-1 w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 dark:text-gray-200"
