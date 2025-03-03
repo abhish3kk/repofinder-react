@@ -2,29 +2,28 @@ import { useEffect, useState } from "react";
 import { HealthContext } from "../contexts/healthContext";
 import { healthCheck } from "../api";
 import { Error } from "../components/Error";
-import Darklight from "../components/Darklight";
+import { useLoader } from "../hooks";
 
 export const HealthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [online, setOnline] = useState<boolean>(false);
+  const [online, setOnline] = useState<boolean>(true);
+  const { isLoading, startLoading, stopLoading } = useLoader();
 
   useEffect(() => {
     const checkHealth = async () => {
+      if (!isLoading) startLoading();
       try {
         const res = await healthCheck();
         setOnline(res.statusCode === 200 ? true : false);
       } catch {
         setOnline(false);
       }
+      stopLoading();
     };
-
-    const interval = setInterval(checkHealth, 5000);
     checkHealth();
-    return () => clearInterval(interval);
   }, []);
 
   return (
     <HealthContext.Provider value={{ online, setOnline }}>
-      <Darklight />
       {online ? children : <Error />}
     </HealthContext.Provider>
   );
