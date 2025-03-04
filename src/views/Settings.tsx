@@ -15,6 +15,7 @@ import { useSettingsStore } from "../store/settingStore";
 import { SaveSettingsRequest } from "../models/api.request.model";
 import { useLoader } from "../hooks";
 import apiService from "../api";
+import { useAuthStore } from "../store";
 
 const Settings = () => {
   const [topicSetting, setTopicSetting] = useState<SettingsProps>();
@@ -37,6 +38,9 @@ const Settings = () => {
     order,
     perPage,
   } = useSettingsStore();
+
+  const { user } = useAuthStore();
+
   useEffect(() => {
     setTopicSetting({
       label: "Select Topics",
@@ -160,6 +164,7 @@ const Settings = () => {
                 type="button"
                 className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 cursor-pointer disabled:bg-gray-400 disabled:cursor-default"
                 onClick={save}
+                disabled={!user}
               >
                 Save
               </button>
