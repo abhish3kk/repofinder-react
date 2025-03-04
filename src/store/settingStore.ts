@@ -21,7 +21,7 @@ export const useSettingsStore = create<settingsState>((set) => ({
   languages: [],
   perPage: 5,
   starGazers: GitHubStars.Between50And100,
-  sort: GitHubSort.Stars,
+  sort: GitHubSort.Updated,
   order: GitHubOrder.Descending,
   setTopics: (topics: string[]) => set({ topics: topics }),
   setLanguages: (languages: string[]) => set({ languages: languages }),

@@ -15,7 +15,7 @@ html {
 
 @layer base {
   body {
-    @apply transition-colors duration-500 ease-in-out bg-white dark:bg-black;
+    @apply transition-colors duration-200 ease-in-out bg-white dark:bg-black;
   }
 }
 

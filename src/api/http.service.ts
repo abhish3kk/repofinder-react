@@ -21,14 +21,12 @@ export const apiRequest = async <T>(
 };
 
 const handleApiError = (error: any) => {
-  // debugger
   const theme = useAppStore.getState().theme;
-  console.error("🚀 ~ handleApiError ~ theme:", theme);
   console.error("API Error:", error);
   let errorMessage: string;
   if (error.response) {
     const { status, data } = error.response;
-    errorMessage = `Error ${status}: ${data?.message || "Unknown error"}`;
+    errorMessage = `Error ${status}: ${data?.message || data || "Unknown error"}`;
   } else {
     errorMessage = "Network Error or Server Unreachable";
   }

@@ -18,7 +18,11 @@ createRoot(document.getElementById("root")!).render(
       <ToastContainer />
       <AppProvider>
         <AppRoutes />
-        <Link to="/" className="fixed left-4 top-4 w-auto text-right">
+        <Link
+          to="/"
+          title="home"
+          className="fixed left-4 top-4 w-auto text-right"
+        >
           <img src={reactLogo} className="mr-3 h-6 sm:h-9" />
         </Link>
         <UserDropdown />
