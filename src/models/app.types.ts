@@ -1,5 +1,5 @@
 export type Notification = {
-  id: number;
+  id?: number;
   message: string;
   type: "success" | "error" | "info";
 };
@@ -10,7 +10,7 @@ export type NotificationState = {
 
 export type NotificationAction =
   | { type: "ADD_NOTIFICATION"; payload: Notification }
-  | { type: "REMOVE_NOTIFICATION"; payload: number };
+  | { type: "REMOVE_NOTIFICATION"; payload?: number };
 
 export enum APP_THEMES {
   DARK = "dark",

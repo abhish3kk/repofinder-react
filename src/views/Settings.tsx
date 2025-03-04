@@ -13,8 +13,8 @@ import {
 import { enumToArray } from "../utils";
 import { useSettingsStore } from "../store/settingStore";
 import { SaveSettingsRequest } from "../models/api.request.model";
-import { saveSettings } from "../api";
 import { useLoader } from "../hooks";
+import apiService from "../api";
 
 const Settings = () => {
   const [topicSetting, setTopicSetting] = useState<SettingsProps>();
@@ -121,7 +121,7 @@ const Settings = () => {
       sort: sort,
       starGazers: starGazers,
     };
-    await saveSettings(request);
+    await apiService.saveSettings(request);
     stopLoading();
   };
 

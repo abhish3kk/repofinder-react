@@ -1,13 +1,9 @@
-import { Loader } from "lucide-react";
 import React from "react";
-import {
-  AuthProvider,
-  LoaderProvider,
-  NotificationProvider,
-} from "./providers";
+import { AuthProvider } from "./providers";
 import { ErrorBoundary } from "react-error-boundary";
 import { Error } from "./components/Error";
 import { HealthProvider } from "./providers/HealthProvider";
+import Loader from "./components/Loader";
 
 type AppProviderProps = {
   children: React.ReactNode;
@@ -15,16 +11,12 @@ type AppProviderProps = {
 
 export const AppProvider = ({ children }: AppProviderProps) => {
   return (
-    <React.Suspense fallback={<Loader />}>
-      <ErrorBoundary FallbackComponent={Error}>
-        <LoaderProvider>
-          <NotificationProvider>
-            <HealthProvider>
-              <AuthProvider>{children}</AuthProvider>
-            </HealthProvider>
-          </NotificationProvider>
-        </LoaderProvider>
-      </ErrorBoundary>
-    </React.Suspense>
+    <ErrorBoundary FallbackComponent={Error}>
+      <HealthProvider>
+        <React.Suspense fallback={<Loader />}>
+          <AuthProvider>{children}</AuthProvider>
+        </React.Suspense>
+      </HealthProvider>
+    </ErrorBoundary>
   );
 };

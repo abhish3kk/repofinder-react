@@ -14,9 +14,9 @@ const ProtectedRoute = ({
   const { token } = useAuth();
   const location = useLocation();
 
-  if (token && !isProtected) {
+  /* if (token && !isProtected) {
     return <Navigate to="/" replace />;
-  }
+  } */
 
   if (!token && isProtected) {
     return <Navigate to="/login" state={{ from: location }} replace />;
