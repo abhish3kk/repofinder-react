@@ -23,6 +23,7 @@ const Darklight = () => {
 
   return (
     <button
+      type="button"
       onClick={() =>
         setTheme(theme === APP_THEMES.DARK ? APP_THEMES.LIGHT : APP_THEMES.DARK)
       }
