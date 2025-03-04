@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { RegisterUser } from "../models/app.models";
 import { Link, useNavigate } from "react-router";
-import { register } from "../api";
 import { useLoader } from "../hooks";
+import apiService from "../api";
 
 const Register = () => {
   const [user, setUser] = useState<RegisterUser>({
@@ -29,7 +29,7 @@ const Register = () => {
 
   const handleRegister = async () => {
     startLoading();
-    const response = await register(user);
+    const response = await apiService.register(user);
     stopLoading();
     if (response && response.responseObject) {
       navigate("/login", { replace: true });
@@ -37,7 +37,7 @@ const Register = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-gray-900">
+    <div className="flex min-h-screen items-center justify-center">
       <div className="w-full max-w-md p-8 space-y-6 bg-white dark:bg-gray-800 shadow-md rounded-2xl">
         <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-gray-100">
           Register

@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
-import { getUserDetails } from "../api";
 import { useSettingsStore } from "../store/settingStore";
 import { GitHubOrder, GitHubSort, GitHubStars } from "../models/github.types";
-import { useLoader, useNotification } from "../hooks";
+import { useLoader } from "../hooks";
 import { AuthContext } from "../contexts";
 import { useAuthStore } from "../store";
 import { User } from "../models/app.models";
+import apiService from "../api";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState<string | null>(
     localStorage.getItem("token"),
   );
   const { startLoading, stopLoading } = useLoader();
-  const { state, dispatch } = useNotification();
   const { setUser } = useAuthStore();
   const {
     setTopics,
@@ -44,22 +43,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       if (!token) return;
       try {
         startLoading();
-        const response = await getUserDetails();
-        const user = response.responseObject as User;
+        const response = await apiService.getUserDetails();
+        const user = response?.responseObject as User;
         setUser(user);
 
         if (user.settings) {
           const { topics, languages, sort, order, perPage, starGazers } =
             user.settings;
-          console.log(
-            "🚀 ~ validateToken ~ topics, languages, sort, order, perPage, starGazers:",
-            topics,
-            languages,
-            sort,
-            order,
-            perPage,
-            starGazers,
-          );
           if (topics) setTopics(topics.split(","));
           if (languages) setLanguages(languages.split(","));
           if (sort) setSort(sort as GitHubSort);
@@ -69,15 +59,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         }
       } catch (error: any) {
         console.error("Token validation failed:", error);
-        dispatch({
-          type: "ADD_NOTIFICATION",
-          payload: {
-            id: state.notifications.length + 1,
-            message:
-              error?.response?.data?.message || "Token validation failed",
-            type: "error",
-          },
-        });
         logout();
       } finally {
         stopLoading();
@@ -94,8 +75,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setOrder,
     setPerPage,
     setStarGazers,
-    dispatch,
-    state.notifications.length,
     startLoading,
     stopLoading,
   ]);

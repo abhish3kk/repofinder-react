@@ -24,8 +24,9 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.error("API Error:", error);
+    console.error(`HTTP Error: ${error}`);
     if (error.response && error.response.status === 401) {
+      //ToDo: improve this logic
       localStorage.removeItem("token");
     }
     return Promise.reject(error);

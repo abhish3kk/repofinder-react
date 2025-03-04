@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { login } from "../api";
-import { useAuth, useLoader, useNotification } from "../hooks";
+import { useAuth, useLoader } from "../hooks";
+import apiService from "../api";
+import { Slide, toast } from "react-toastify";
+import { useAppStore } from "../store/appStore";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { setAuthToken, token } = useAuth();
   const { startLoading, stopLoading } = useLoader();
-  const { state, dispatch } = useNotification();
   const navigate = useNavigate();
+  const { theme } = useAppStore();
 
   const handleLogin = (
     e:
@@ -18,18 +20,11 @@ const Login = () => {
   ) => {
     if (e.type === "click" || ("key" in e && e.key === "Enter")) {
       startLoading();
-      login({ username, password })
+      apiService
+        .login({ username, password })
         .then((resp) => {
-          if (resp.responseObject) {
+          if (resp?.responseObject) {
             setAuthToken(resp.responseObject.toString());
-            dispatch({
-              type: "ADD_NOTIFICATION",
-              payload: {
-                id: state.notifications.length + 1,
-                message: resp.message,
-                type: "success",
-              },
-            });
           }
         })
         .catch((error) => {
@@ -41,13 +36,16 @@ const Login = () => {
           } else if (error.message) {
             message = error.message;
           }
-          dispatch({
-            type: "ADD_NOTIFICATION",
-            payload: {
-              id: state.notifications.length + 1,
-              message: message,
-              type: "error",
-            },
+          toast.error(message, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+            theme: theme,
+            transition: Slide,
           });
         })
         .finally(() => {
