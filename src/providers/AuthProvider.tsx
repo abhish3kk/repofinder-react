@@ -76,8 +76,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setOrder,
     setPerPage,
     setStarGazers,
-    startLoading,
-    stopLoading,
   ]);
 
   useEffect(() => {

@@ -1,10 +1,14 @@
 import React from "react";
 import { useLoader } from "../hooks";
 
-const Loader: React.FC = () => {
+interface LoaderProps {
+  showLoader?: boolean;
+}
+
+const Loader: React.FC<LoaderProps> = ({ showLoader = false }) => {
   const { isLoading } = useLoader();
 
-  if (!isLoading) return null;
+  if (!isLoading && !showLoader) return null;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800/70 z-50">
