@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 
-function Home() {
+const Home = () => {
   return (
     <div>
       <main>
@@ -8,6 +8,6 @@ function Home() {
       </main>
     </div>
   );
-}
+};
 
 export default Home;

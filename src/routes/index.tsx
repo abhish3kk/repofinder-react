@@ -5,6 +5,7 @@ const Register = lazy(() => import("../views/Register"));
 const Settings = lazy(() => import("../views/Settings"));
 const MainContent = lazy(() => import("../components/MainContent"));
 const Dashboard = lazy(() => import("../views/Dashboard"));
+const Playground = lazy(() => import("../views/Playground"));
 
 interface RouteDefinition {
   path: string;
@@ -22,6 +23,7 @@ const routes: RouteDefinition[] = [
     children: [
       { path: "", element: <MainContent /> },
       { path: "settings", element: <Settings /> },
+      { path: "playground", element: <Playground /> },
       { path: ":category", element: <MainContent /> },
     ],
   },

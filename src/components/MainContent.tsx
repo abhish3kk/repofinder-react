@@ -16,8 +16,8 @@ const MainContent = () => {
   const { startLoading, stopLoading } = useLoader();
   const { languages, order, perPage, sort, starGazers } = useSettingsStore();
   useEffect(() => {
-    startLoading();
     const fetchRepos = async () => {
+      startLoading();
       if (!category || category === STARRED_ROUTE) {
         const response = await apiService.getStarred();
         setRepos((response?.responseObject as GitHubSearchResponse)?.items);
@@ -49,16 +49,7 @@ const MainContent = () => {
       stopLoading();
     };
     fetchRepos();
-  }, [
-    category,
-    languages,
-    order,
-    perPage,
-    sort,
-    starGazers,
-    startLoading,
-    stopLoading,
-  ]);
+  }, [category, languages, order, perPage, sort, starGazers]);
 
   return (
     <div className="flex flex-col min-h-screen">

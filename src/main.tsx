@@ -9,6 +9,7 @@ import UserDropdown from "./components/UserDropdown";
 import reactLogo from "./assets/react.svg";
 import { ToastContainer } from "react-toastify";
 import { LoaderProvider } from "./providers";
+import React from "react";
 
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
@@ -17,15 +18,18 @@ createRoot(document.getElementById("root")!).render(
       <Loader />
       <ToastContainer />
       <AppProvider>
-        <AppRoutes />
-        <Link
-          to="/"
-          title="home"
-          className="fixed left-4 top-4 w-auto text-right"
-        >
-          <img src={reactLogo} className="mr-3 h-6 sm:h-9" />
-        </Link>
-        <UserDropdown />
+        {/* Below fallback is not working, WIP */}
+        <React.Suspense fallback={<Loader showLoader={true} />}>
+          <AppRoutes />
+          <Link
+            to="/"
+            title="home"
+            className="fixed left-4 top-4 w-auto text-right"
+          >
+            <img src={reactLogo} className="mr-3 h-6 sm:h-9" />
+          </Link>
+          <UserDropdown />
+        </React.Suspense>
       </AppProvider>
     </LoaderProvider>
   </BrowserRouter>,
