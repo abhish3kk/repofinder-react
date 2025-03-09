@@ -22,9 +22,7 @@ export interface SettingsProps {
   onSelect: (value: Option | Option[] | null) => void;
 }
 
-const SettingsDropdown: React.FC<{ setting: SettingsProps }> = ({
-  setting,
-}) => {
+const Setting: React.FC<{ setting: SettingsProps }> = ({ setting }) => {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<Option[] | Option | null>();
 
@@ -163,4 +161,4 @@ const SettingsDropdown: React.FC<{ setting: SettingsProps }> = ({
   );
 };
 
-export default SettingsDropdown;
+export default Setting;

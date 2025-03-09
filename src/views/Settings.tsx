@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-import SettingsDropdown, {
-  Option,
-  SettingsProps,
-} from "../components/Combobox";
+import Setting, { Option, SettingsProps } from "../components/Setting";
 import {
   GitHubLanguage,
   GitHubOrder,
@@ -138,15 +135,11 @@ const Settings = () => {
             Settings
           </h1>
           <div className="space-y-4">
-            {topicSetting ? <SettingsDropdown setting={topicSetting} /> : ""}
-            {languageSetting ? (
-              <SettingsDropdown setting={languageSetting} />
-            ) : (
-              ""
-            )}
-            {starSetting ? <SettingsDropdown setting={starSetting} /> : ""}
-            {sortSetting ? <SettingsDropdown setting={sortSetting} /> : ""}
-            {orderSetting ? <SettingsDropdown setting={orderSetting} /> : ""}
+            {topicSetting ? <Setting setting={topicSetting} /> : ""}
+            {languageSetting ? <Setting setting={languageSetting} /> : ""}
+            {starSetting ? <Setting setting={starSetting} /> : ""}
+            {sortSetting ? <Setting setting={sortSetting} /> : ""}
+            {orderSetting ? <Setting setting={orderSetting} /> : ""}
             <div>
               <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Per Page
