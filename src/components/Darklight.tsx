@@ -27,6 +27,7 @@ const Darklight = () => {
       onClick={() =>
         setTheme(theme === APP_THEMES.DARK ? APP_THEMES.LIGHT : APP_THEMES.DARK)
       }
+      title="theme switcher"
       className="fixed bottom-4 right-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700 shadow-md cursor-pointer"
     >
       {theme === APP_THEMES.DARK ? (
